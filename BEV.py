@@ -1,7 +1,6 @@
 import carla
 import numpy as np
 import cv2
-import pygame
 import time
 
 def main():
@@ -18,11 +17,11 @@ def main():
 
     # === Attach Top-Down RGB Camera ===
     cam_bp = blueprint_library.find('sensor.camera.rgb')
-    cam_bp.set_attribute('image_size_x', '800')
-    cam_bp.set_attribute('image_size_y', '800')
+    cam_bp.set_attribute('image_size_x', '700')
+    cam_bp.set_attribute('image_size_y', '700')
     cam_bp.set_attribute('fov', '90')
     
-    cam_transform = carla.Transform(carla.Location(z=50), carla.Rotation(pitch=-90))
+    cam_transform = carla.Transform(carla.Location(x=10, z=20), carla.Rotation(pitch=-90))
     camera = world.spawn_actor(cam_bp, cam_transform, attach_to=vehicle)
 
     # === Image Callback ===
@@ -36,7 +35,7 @@ def main():
     camera.listen(lambda image: process_image(image))
 
     # === Let It Run ===
-    time.sleep(20)
+    time.sleep(5)
 
     # === Cleanup ===
     camera.stop()
